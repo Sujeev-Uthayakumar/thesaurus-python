@@ -5,10 +5,15 @@ def loadJSON():
     data = json.load(open("data.json"))
     return data
 
+
 def find(key):
     data = loadJSON()
     key = key.lower()
-    if key in data:
+    noun = key.title()
+    acronym = key.upper()
+    if key in data or noun in data or acronym in data:
+        key = noun
+        key = acronym
         return output(data[key])
     elif len(get_close_matches(key, data.keys())) > 0:
         key = get_close_matches(key, data.keys(),n=1)[0]
@@ -22,6 +27,7 @@ def find(key):
             return print("The entry cannot be understood!")
     else:
         return print("This word does not exist. Please double check it.")
+
 
 def output(definitions):
     count = 0
